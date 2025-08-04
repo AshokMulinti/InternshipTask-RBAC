@@ -6,8 +6,8 @@ import com.ashok.example_rbac.dto.StudentCreateResponse;
 import com.ashok.example_rbac.dto.StudentRequest;
 import com.ashok.example_rbac.dto.StudentResponse;
 import com.ashok.example_rbac.entities.Student;
-import com.ashok.example_rbac.exceptions.StudentAlreadyExistsException;
-import com.ashok.example_rbac.exceptions.StudentNotFoundException;
+import com.ashok.example_rbac.exceptions.UserAlreadyExistsException;
+import com.ashok.example_rbac.exceptions.UserNotFoundException;
 import com.ashok.example_rbac.service.interfaces.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> studentData = studentRepository.findByEmail(request.email());
 
         if(studentData.isEmpty()){
-            throw new StudentNotFoundException("Student not found with this mail");
+            throw new UserNotFoundException("Student not found with this mail");
         }
         Student student = studentData.get();
         return new StudentResponse(
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> existingStudent = studentRepository.findByEmail(request.email());
 
         if (existingStudent.isPresent()) {
-            throw new StudentAlreadyExistsException("Student already exists with this email");
+            throw new UserAlreadyExistsException("Student already exists with this email");
         }
 
         Student student = new Student();
@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentCreateResponse updateStudent(Long id, StudentCreateRequest request) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException("Student not found by id"));
+                .orElseThrow(() -> new UserNotFoundException("Student not found by id"));
         student.setName(request.name());
         student.setEmail(request.email());
         student.setCourse(request.course());

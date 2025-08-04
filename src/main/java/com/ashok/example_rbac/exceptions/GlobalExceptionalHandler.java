@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionalHandler {
 
-    @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<String>handleStudentNotFoundException(StudentNotFoundException studentNotFoundException){
-       return new ResponseEntity<>(studentNotFoundException.getMessage(), HttpStatus.UNAUTHORIZED);
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String>handleStudentNotFoundException(UserNotFoundException userNotFoundException){
+       return new ResponseEntity<>(userNotFoundException.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(StudentAlreadyExistsException.class)
-    public ResponseEntity<String> handleStudentAlreadyExistsException(StudentAlreadyExistsException studentAlreadyExistsException){
-        return new ResponseEntity<>(studentAlreadyExistsException.getMessage(),HttpStatus.UNAUTHORIZED);
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<String> handleStudentAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException){
+        return new ResponseEntity<>(userAlreadyExistsException.getMessage(),HttpStatus.UNAUTHORIZED);
     }
 }
